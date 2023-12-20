@@ -71,3 +71,109 @@ video {
     background-position: 200% center;
   }
 }
+
+.form {
+  width: 40%;
+  position: relative;
+  height: 60px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.form input {
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  padding-top: 20px;
+  border: none;
+  background-color: transparent;
+}
+.form label {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-bottom: 1px solid white;
+  color: rgb(158, 158, 158);
+}
+.form label::after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  border-bottom: 3px solid #ff006a;
+  transform: translateX(-100%);
+  transition: all 0.3s ease;
+}
+
+.content-name {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  padding-bottom: 5px;
+  transition: all 0.3s ease;
+}
+.form input:focus {
+  outline: none;
+}
+.form input:focus + .label-name .content-name,
+.form input:valid + .label-name .content-name {
+  transform: translateY(-100%);
+  font-size: 14px;
+  left: 0px;
+  color: #fff;
+}
+.form input:focus + .label-name::after,
+.form input:valid + .label-name::after {
+  transform: translateX(0%);
+}
+
+input[type="text"]
+{
+    font-size:20px;
+}
+
+.summarize-btn {
+  display: block;
+  margin:auto;
+  width: 200px;
+  height: 40px;
+  top:20px;
+  line-height: 40px;
+  font-size: 18px;
+  font-family: sans-serif;
+  text-decoration: none;
+  color: #fff;
+  border: 2px solid #ff006a;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  transition: all .35s;
+}
+
+.summarize-btn span{
+  position: relative;
+  z-index: 2;
+}
+
+.summarize-btn:after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #ff006a;
+  transition: all .35s;
+}
+
+.summarize-btn:hover{
+  color: #fff;
+}
+
+.summarize-btn:hover:after{
+  width: 100%;
+}
