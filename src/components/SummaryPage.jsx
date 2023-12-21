@@ -9,11 +9,16 @@ const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et
         <div className='video-preview-container'>
             <iframe className='frame-YT' src={"https://www.youtube.com/embed/"+searchParams.get("id")} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
-        <h1 className='summary-header'>SUMMARY</h1>
         <div className='summary-text-container'>
-            <div>
+          <div className='summary-box'>
+            <span></span>
+            <div className='summary-text-card'>
+              <h2>Summary</h2>
+              <p>
                 {lorem}
+              </p>
             </div>
+          </div>
         </div>
     </div>
   )

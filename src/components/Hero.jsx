@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom"
 
-const url = "hola"
+const url_id = "aDRSxVI4MyU"
 function Hero() {
   return (
     <div className='heroContent'>
@@ -16,7 +16,7 @@ function Hero() {
           </label>
         </div>
         <div>
-          <Link to={{pathname: '/summary', search: '?id='+url}} className='summarize-btn' ><span>Make Summary</span></Link>
+          <Link to={{pathname: '/summary', search: '?id='+url_id}} className='summarize-btn' ><span>Make Summary</span></Link>
         </div>
     </div>
   )
