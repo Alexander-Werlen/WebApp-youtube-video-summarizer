@@ -3,17 +3,23 @@ import { useSearchParams } from "react-router-dom";
 
 function SummaryPage() {
   const [searchParams] = useSearchParams();
-  const [finishedAPICall, setFinishedAPICall] = useState(false);
-  const [flags, setFlags] = useState({id_is_valid: false, found_transcript: false, found_summary: false});
-  const [summary, setSummary] = useState("");
+  const [finishedAPICall = false, setFinishedAPICall] = useState();
+  const [flags = {id_is_valid: false, found_transcript: false, found_summary: false}, setFlags] = useState();
+  const [summary = "", setSummary] = useState();
+
+  /* useEffect(()=>{
+    setInterval(()=>{
+      console.log(flags)
+    }, 1000)
+  }, []) */
 
   useEffect(()=>{
-    fetch(`https://youtube-video-summarizer-2ach.onrender.com/api/summarize?id=${searchParams.get("id")}`).then((r)=>{r.json().then((response)=>{
+    fetch(`https://youtube-video-summarizer-2ach.onrender.com/api/summarize?id=${searchParams.get("id")}`).then((r)=>r.json()).then((response)=>{
       setSummary(response.summary);
-      setFlags({id_is_valid: response.id_is_valid, found_transcript: response.found_transcript, found_summary: response.found_transcript});
+      setFlags({id_is_valid: response.id_is_valid, found_transcript: response.found_transcript, found_summary: response.found_summary});
       setFinishedAPICall(true);
-    })}).catch(console.log)
-  }, [searchParams])
+    })}
+  , [])
 
   return (
     <div className='summary-container'>
@@ -25,14 +31,14 @@ function SummaryPage() {
             <span></span>
             <div className='summary-text-card'>
               {
-                !finishedAPICall &&
+                (!finishedAPICall) &&
                 <>
                   <h2 className='lds-title'>making summary</h2>
                   <div className='lds-ellipsis-container'><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
                 </>
               }
               {
-                finishedAPICall && flags.found_summary &&
+                (finishedAPICall && flags.found_summary) &&
                 <>
                   <h2>Summary</h2>
                   <p>
@@ -41,16 +47,16 @@ function SummaryPage() {
                 </>
               }
               {
-                finishedAPICall && !flags.found_summary && flags.found_transcript &&
+                (finishedAPICall && !flags.found_summary && flags.found_transcript) &&
                 <>
                   <h2>Failed</h2>
                   <p>
-                    Couldn't make the summary. The video might be too large to summarize, or there could be problems reaching the AI that makes the summary.
+                    Couldn't make the summary. The video might be too large to summarize, the service could be saturated, or there could be problems reaching the AI that makes the summary.
                   </p>
                 </>
               }
               {
-                finishedAPICall && !flags.found_transcript && flags.id_is_valid &&
+                (finishedAPICall && !flags.found_transcript && flags.id_is_valid) &&
                 <>
                   <h2>Failed</h2>
                   <p>
@@ -59,7 +65,7 @@ function SummaryPage() {
                 </>
               }
               {
-                finishedAPICall && !flags.id_is_valid &&
+                (finishedAPICall && !flags.id_is_valid) &&
                 <>
                   <h2>Invalid URL</h2>
                 </>
