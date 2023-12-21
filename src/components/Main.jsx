@@ -1,6 +1,8 @@
 import React from 'react'
 import videoBg from "../assets/bg_video.mp4"
 import Hero from "./Hero"
+import SummaryPage from './SummaryPage'
+import {Route, Routes } from "react-router-dom"
 
 function Main() {
   return (
@@ -8,7 +10,10 @@ function Main() {
         <div className='overlay'></div>
         <video src={videoBg} autoPlay loop muted/>
         <div className='pageContent'>
-            <Hero />
+            <Routes>
+              <Route path='/' element={<Hero />}/>
+              <Route path='/summary' element={<SummaryPage />}/>
+            </Routes>
         </div>
     </div>
   )
