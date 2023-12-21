@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSearchParams } from "react-router-dom";
 
 function SummaryPage() {
-const [searchParams] = useSearchParams();
-const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nibh at augue bibendum feugiat vel sed tellus. Maecenas non fringilla metus, eleifend eleifend purus. Nunc ac feugiat magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in rhoncus massa. Nulla convallis efficitur elementum. Nunc vitae massa auctor, dignissim sapien non, tempor neque. Quisque fringilla magna nec nisi mollis venenatis. Pellentesque efficitur commodo velit, non blandit eros hendrerit vitae. Vestibulum efficitur ac lorem quis maximus. Nullam efficitur volutpat volutpat. Curabitur laoreet faucibus velit id faucibus. Vivamus est massa, lobortis vitae lectus ut, semper semper sem. Integer condimentum dui quis justo facilisis, vitae vestibulum eros pellentesque. Vivamus gravida magna congue, iaculis ante ac, mollis risus. Pellentesque habitant morbi tristique senectus."
+  const [searchParams] = useSearchParams();
+  const [finishedAPICall, setFinishedAPICall] = useState(false);
+  const [flags, setFlags] = useState({id_is_valid: false, found_transcript: false, found_summary: false});
+  const [summary, setSummary] = useState("");
+
+  useEffect(()=>{
+    fetch(`https://youtube-video-summarizer-2ach.onrender.com/api/summarize?id=${searchParams.get("id")}`).then((r)=>{r.json().then((response)=>{
+      setSummary(response.summary);
+      setFlags({id_is_valid: response.id_is_valid, found_transcript: response.found_transcript, found_summary: response.found_transcript});
+      setFinishedAPICall(true);
+    })}).catch(console.log)
+  }, [searchParams])
+
   return (
     <div className='summary-container'>
         <div className='video-preview-container'>
@@ -13,10 +24,46 @@ const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et
           <div className='summary-box'>
             <span></span>
             <div className='summary-text-card'>
-              <h2>Summary</h2>
-              <p>
-                {lorem}
-              </p>
+              {
+                !finishedAPICall &&
+                <>
+                  <h2 className='lds-title'>making summary</h2>
+                  <div className='lds-ellipsis-container'><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
+                </>
+              }
+              {
+                finishedAPICall && flags.found_summary &&
+                <>
+                  <h2>Summary</h2>
+                  <p>
+                    {summary}
+                  </p>
+                </>
+              }
+              {
+                finishedAPICall && !flags.found_summary && flags.found_transcript &&
+                <>
+                  <h2>Failed</h2>
+                  <p>
+                    Couldn't make the summary. The video might be too large to summarize, or there could be problems reaching the AI that makes the summary.
+                  </p>
+                </>
+              }
+              {
+                finishedAPICall && !flags.found_transcript && flags.id_is_valid &&
+                <>
+                  <h2>Failed</h2>
+                  <p>
+                    The video doesn't have a transcript. Either the video was uploaded too soon, or the owner decided to disable them.
+                  </p>
+                </>
+              }
+              {
+                finishedAPICall && !flags.id_is_valid &&
+                <>
+                  <h2>Invalid URL</h2>
+                </>
+              }
             </div>
           </div>
         </div>
