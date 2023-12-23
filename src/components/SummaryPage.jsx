@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 
 function SummaryPage() {
   const [searchParams] = useSearchParams();
@@ -60,7 +60,7 @@ function SummaryPage() {
                 <>
                   <h2>Failed</h2>
                   <p>
-                    The video doesn't have a transcript. Either the video was uploaded too soon, or the owner decided to disable them.
+                    Couldn't get the transcript. Video might not have a transcript, or the service could be saturated. 
                   </p>
                 </>
               }
@@ -73,6 +73,12 @@ function SummaryPage() {
             </div>
           </div>
         </div>
+        <div className='try-another-btn'>
+          {
+            finishedAPICall && <Link to={{pathname: '/'}} className='summarize-btn' ><span>Try Another</span></Link>
+          }
+        </div>
+        
     </div>
   )
 }

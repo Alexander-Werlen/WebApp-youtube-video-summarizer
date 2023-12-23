@@ -194,7 +194,6 @@ input[type="text"] {
 .summary-container {
   position: relative;
   top: 5%;
-  height: 100%;
 }
 
 .video-preview-container {
@@ -383,4 +382,8 @@ input[type="text"] {
   100% {
     transform: translate(24px, 0);
   }
+}
+
+.try-another-btn {
+  padding-bottom: 60px;
 }
