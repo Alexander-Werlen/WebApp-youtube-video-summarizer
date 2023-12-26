@@ -14,7 +14,7 @@ function SummaryPage() {
   }, []) */
 
   useEffect(()=>{
-    fetch(`http://3.145.79.157:3000/api/summarize?id=${searchParams.get("id")}`).then((r)=>r.json()).then((response)=>{
+    fetch(`https://youtube-video-summarizer-2ach.onrender.com/api/summarize?id=${searchParams.get("id")}`).then((r)=>r.json()).then((response)=>{
       setSummary(response.summary);
       setFlags({id_is_valid: response.id_is_valid, found_transcript: response.found_transcript, found_summary: response.found_summary});
       setFinishedAPICall(true);
