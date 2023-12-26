@@ -14,7 +14,7 @@ function youtube_parser(url){
 function Hero() {
   useEffect(()=>{
     //ping to start cold server
-    fetch("https://youtube-video-summarizer-2ach.onrender.com/ping").catch(()=>{})
+    fetch("http://3.145.79.157:3000/ping").catch(()=>{})
   }, [])
   const [video_url,setVideo_url] = useState("")
 
