@@ -30,7 +30,8 @@ function SummaryPage() {
           <div className='summary-box'>
             <span></span>
             <div className='summary-text-card'>
-              {
+              <h2>Service is currently down</h2>
+              {/* {
                 (!finishedAPICall) &&
                 <>
                   <h2 className='lds-title'>making summary</h2>
@@ -69,7 +70,7 @@ function SummaryPage() {
                 <>
                   <h2>Invalid URL</h2>
                 </>
-              }
+              } */}
             </div>
           </div>
         </div>
